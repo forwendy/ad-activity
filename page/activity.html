@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+    <!--iphone-->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no, email=no">
+    <!--iphone-->
+    <title>大赛信息</title>
+    <script src="../js/fit.js"></script>
+    <link rel="stylesheet" href="../weui/weui.min.css">
+    <link rel="stylesheet" href="../css/icon.css ">
+    <link rel="stylesheet" href="../css/common.css ">
+    <style>
+        .main {
+            padding: 0 0 1.6rem;
+        }
+
+        .banner {
+            width: 100%;
+            height: 2.8rem;
+            background: #eee;
+        }
+
+        .navigate {
+            margin-top: 0.4rem;
+        }
+
+        .navigate .item {
+            padding: 0.2rem 0.3rem;
+        }
+
+        .navigate .item a {
+            color: #000;
+        }
+
+        .navigate .item a h2 {
+            font-size: 17px;
+            font-weight: 500;
+            margin-bottom: 0.1rem;
+        }
+
+        .navigate .item a span {
+            font-size: 14px;
+        }
+        .awards h1{
+            font-size: 24px;
+            font-weight: 500;
+            padding: 0 0.3rem;
+            line-height: 1rem;
+        }
+        .awards {
+            margin-top: 0.1rem;
+        }
+        .awards .shadow{
+            margin: 0 0.25rem;
+            padding: 0.2rem 0.3rem 0.3rem;
+        }
+        .awards .shadow h2{
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 0.2rem;
+        }
+        .awards .shadow h2 .fr{
+            color: #F9AA12;
+        }
+        .awards .shadow .text{
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 0.2rem;
+            text-align: justify;
+        }
+        .awards .shadow .fix .fr i{
+            margin-left: 0.3rem;
+        }
+        .awards .shadow .fix .fr span {
+            font-size: 12px;
+            vertical-align: bottom-line;
+        }
+        .awards .shadow .fix .zan{
+            color: #666;
+        }
+        .awards .shadow .fix .tzan{
+            color: #F9C171;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page" id="app" v-cloak>
+        <div class="main">
+            <div class="scroll-container">
+                <!-- 大赛征集 -->
+                <div class="content" v-if="status == 0"  v-show="tabId == 0">
+                    <div class="banner">
+                    </div>
+                    <ul class="navigate shadow">
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.3rem 0;"></i>
+                                <h2>中国首届LOGO设计大赛</h2><span>九月上旬</span>
+                            </a>
+                        </li>
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.3rem 0;"></i>
+                                <h2>一句话广告语征集大赛</h2><span>九月上旬</span>
+                            </a>
+                        </li>
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.3rem 0;"></i>
+                                <h2>吉祥物征集大赛</h2><span>九月上旬</span>
+                            </a>
+                        </li>
+                        <li class="item fix">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.3rem 0;"></i>
+                                <h2>中国首届LOGO设计大赛</h2><span>九月上旬</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- 大赛评比 -->
+                <div class="content" v-else-if="status == 1" v-show="tabId == 1">
+
+                </div>
+                <!-- 大赛结束 -->
+                <div class="content" v-else-if="status == 2" v-show="tabId == 2">
+                    <div class="awards">
+                        <h1>一等奖</h1>
+                        <div class="shadow">
+                            <h2 class="fix"><span>姓名：张三</span> <span class="fr">奖金：600</span></h2>
+                            <p class="text">征集文案、征集文案、征集文案、征集文案、征集文案、征集文案。</p>
+                            <p class="fix">
+                                <span class="fr zan"><i class="ico-zan-s"></i> <span>3000</span></span>
+                                <span class="fr tzan"><i class="ico-tzan-s"></i> <span>3000</span></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 我的 -->
+                <div class="content" v-show="tabId == 3">
+                    <ul class="navigate shadow">
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.12rem 0;"></i>
+                                <h2>中国首届文案征集大赛</h2>
+                            </a>
+                        </li>
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.12rem 0;"></i>
+                                <h2>我的人气</h2>
+                            </a>
+                        </li>
+                        <li class="item fix bottom-line">
+                            <a href="/">
+                                <i class="ico-arrow-right fr" style="margin: 0.12rem 0;"></i>
+                                <h2>我的钱包</h2>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="tab fix">
+                <!-- 大赛征集 -->
+                <div class="tab-item" :class="{active: tabId == 0}" v-if="status == 0">
+                    <i class="ico-detail"></i>
+                    <br>
+                    <span>活动详情</span>
+                </div>
+                <!-- 大赛评比 -->
+                <div class="tab-item" :class="{active: tabId == 1}" v-else-if="status == 1">
+                    <i class="ico-works"></i>
+                    <br>
+                    <span>作品展示</span>
+                </div>
+                <!-- 大赛结束 -->
+                <div class="tab-item" :class="{active: tabId == 2}" v-else-if="status == 2">
+                    <i class="ico-show"></i>
+                    <br>
+                    <span>大赛展示</span>
+                </div>
+                <div class="tab-item" :class="{active: tabId == 3}">
+                    <i class="ico-user"></i>
+                    <br>
+                    <span>我的</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 兼容华为低版本浏览器 -->
+    <script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
+    <!-- 兼容华为低版本浏览器 -->
+    <script src="../js/vue.js"></script>
+    <script src="../js/component.js"></script>
+    <script src="../js/zepto.js"></script>
+    <script src="../weui/weui.min.js"></script>
+    <script>
+        var vapp = new Vue({
+            el: '#app',
+            data: {
+                status: 0, // 0 大赛征集 1 大赛评选 2 大赛介绍（获奖作品展示）
+                tabId: 0, // 0 大赛征集 1 大赛评选 2 大赛介绍（获奖作品展示）3 我的
+            },
+            computed: {
+
+            },
+            methods: {
+
+            }
+        });
+    </script>
+</body>
+
+</html>

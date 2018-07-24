@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<!--iphone-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--iphone-->
+	<title>大赛报名</title>
+	<script src="../js/fit.js"></script>
+	<link rel="stylesheet" href="../weui/weui.min.css">
+	<link rel="stylesheet" href="../css/icon.css ">
+	<link rel="stylesheet" href="../css/common.css ">
+	<style>
+		.main {
+			padding: 0 0 1.6rem;
+		}
+
+		.form {
+			margin-top: 0.4rem;
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+			padding: 0 0.3rem;
+		}
+
+		@media (min-width: 320px) {
+			.form input {
+				width: 2.5rem;
+			}
+		}
+
+		.notes {
+			font-size: 12px;
+			padding: 0.2rem 0 0.55rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page" id="app" v-cloak>
+		<div class="main">
+			<div class="scroll-container">
+				<div class="form">
+                    <div class="form-group bottom-line">
+						<label style="border: none;">广告语</label>
+                        <textarea v-model="form.ad" rows="3" placeholder="请输入你具有创意的广告语" maxLength="50"></textarea>
+					</div>
+                    <div class="form-group">
+                        <label style="border: none;">广告寓意</label>
+                        <textarea v-model="form.moral" rows="4" placeholder="请输入你广告语的寓意" maxLength="100"></textarea>
+                    </div>
+				</div>
+				<div class="form" style="margin: 0.2rem 0; ">
+                    <label-input class="form-group bottom-line" :max="11" label="姓名" placeholder="请输入姓名" :value="form.name" v-on:input="form.name = $event" v-on:clear="form.name = ''"></label-input>
+                    <!-- 无用户id -->
+                    <label-input v-if="!form.id" class="form-group bottom-line" :max="11" label="手机号" placeholder="请输入手机号" :value="form.telephone" v-on:input="form.telephone = $event" v-on:clear="form.telephone = ''"></label-input>
+					<div v-if="!form.id" class="form-group bottom-line">
+						<a v-show="countDown != 0" style="margin-top: -0.1rem;" class="btn btn-inline fr">倒数{{countDown}}s</a>
+						<label-input style="display:inline-block;" :max="6" label="验证码" placeholder="请输入验证码" :value="form.code" v-on:input="form.code = $event" v-on:clear="form.code = ''"></label-input>
+						<a v-show="countDown == 0" style="margin-top: -0.1rem;" class="btn btn-inline fr" :class="{active: form.telephone.length == 11}" v-on:click="getCode">获取验证码</a>
+					</div>
+                    <!-- 无用户id -->
+                    <label-input class="form-group bottom-line" :max="11" label="邮箱" placeholder="请输入邮箱" :value="form.email" v-on:input="form.email = $event" v-on:clear="form.email = ''"></label-input>
+                    <label-input class="form-group bottom-line" :max="11" label="QQ号" placeholder="请输入QQ号" :value="form.qq" v-on:input="form.qq = $event" v-on:clear="form.qq = ''"></label-input>
+                    <label-input class="form-group bottom-line" :max="11" label="微信号" placeholder="请输入微信号" :value="form.wechat" v-on:input="form.wechat = $event" v-on:clear="form.wechat = ''"></label-input>
+                    <label-input class="form-group bottom-line" :max="11" label="所在学校" placeholder="请输入所在学校" :value="form.school" v-on:input="form.school = $event" v-on:clear="form.school = ''"></label-input>
+                    <label-input class="form-group" :max="11" label="所在院系" placeholder="请输入所在院系" :value="form.faculty" v-on:input="form.faculty = $event" v-on:clear="form.faculty = ''"></label-input>
+				</div>
+			</div>
+		</div>
+		<div class="footer fixed-bottom">
+			<a class="btn" :class="{active: isFinished}" v-on:click="submit">提交</a>
+		</div>
+	</div>
+	<!-- 兼容华为低版本浏览器 -->
+	<script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
+	<!-- 兼容华为低版本浏览器 -->
+	<script src="../js/vue.js"></script>
+	<script src="../js/component.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../weui/weui.min.js"></script>
+	<script>
+		var vapp = new Vue({
+			el: '#app',
+			data: {
+				countDown: 0,
+				form: {
+                    code: '', // 是否存在用户id
+                    id: '',
+                    name: '',
+					telephone: '',
+                    email: '',
+                    qq: '',
+                    wechat: '',
+                    school: '',
+                    faculty: '',
+                    ad: '',
+                    moral: ''
+				}
+			},
+			computed: {
+				isFinished: function() {
+                    var common = this.form.name != '' && this.form.telephone != '' && this.form.email != ''
+                     && this.form.school != '' && this.form.faculty != ''
+                     && this.form.ad != '' && this.form.moral != '';
+                    var online = this.form.qq != '' || this.form.wechat != ''
+                    if(this.form.id){
+    					return common && online;
+                    }else {
+                        return common && online && this.form.code;
+                    }
+				}
+			},
+			methods: {
+				getCode: function() {
+					var _this = this;
+					if (this.form.telephone) {
+						weui.alert('验证码已发送至134****9966，请查看您的手机短信', {
+							className: 'my-alert',
+						});
+						_this.countDown = 60;
+						var time = setInterval(function() {
+							// console.log(_this.countDown)
+							if (_this.countDown != 0) {
+								_this.countDown -= 1
+							} else {
+								clearInterval(time);
+							}
+						}, 1000);
+					}
+				},
+				submit: function() {
+					if (this.isFinished) {
+						var loading = weui.loading('loading', {
+							className: 'custom-classname'
+						});
+						setTimeout(function() {
+							loading.hide(function() {
+								console.log('`loading` has been hidden');
+							});
+							weui.toast('操作成功', 3000);
+						}, 3000);
+						var data = this.form;
+						$.post('/create', data, function(response) {
+							// process response
+						});
+					}
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>

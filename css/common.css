@@ -1,0 +1,258 @@
+* {
+    /* 取消Safari浏览器可点击元素变灰效果 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+body, input, textarea {
+    margin: 0;
+    font: 12px "PingFang-SC-Regular", "Microsoft YaHei", sans-serif;
+    color: #000;
+    background: #fff;
+}
+
+textarea, input {
+    font-family: inherit;
+    /*-webkit-user-select: none;/* 禁掉用户可以选中页面中的内容，*/
+    -webkit-appearance: none;
+    outline: none;
+    border: none;
+}
+
+a {
+    color: #0657a5;
+}
+
+::-webkit-input-placeholder {
+    color: #999 !important;
+    text-overflow: ellipsis;
+}
+
+:-moz-placeholder {
+    color: #999 !important;
+    text-overflow: ellipsis;
+}
+
+::-moz-placeholder {
+    color: #999 !important;
+    text-overflow: ellipsis;
+}
+
+:-ms-input-placeholder {
+    color: #999 !important;
+    text-overflow: ellipsis;
+}
+
+.input-hide {
+    width: 1px;
+    position: absolute;
+    clip: rect(0 0 0 0);
+}
+
+.img-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.fix:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.fix {
+    *zoom: 1;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/* 文字超出隐藏 */
+
+.inaline {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.inline-x {
+    display: -webkit-box !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    /*-webkit-line-clamp:*/
+}
+
+/* 文字超出隐藏 */
+
+/* bottom-line */
+
+.bottom-line {
+    position: relative;
+}
+
+.bottom-line:before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -50%;
+    right: -50%;
+    height: 1px;
+    background: #ededed;
+    transform: scale(0.5, 0.5);
+    -webkit-transform: scale(0.5, 0.5);
+}
+
+/* bottom-line */
+
+/* layout */
+
+html, body, .page {
+    margin: 0;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.header, .footer {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.header {
+    top: 0;
+}
+
+.footer {
+    bottom: 0;
+}
+
+.main {
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.scroll-container {
+    height: 100%;
+    overflow: auto;
+    /* winphone8和android4+ */
+    -webkit-overflow-scrolling: touch;
+    /* ios5+ */
+}
+
+.fixed-bottom {
+    padding: 0.3rem;
+}
+
+/* layout */
+
+.mask {
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, .5);
+}
+
+.btn {
+    display: block;
+    font-size: 18px;
+    line-height: 1rem;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    background: #ccc;
+}
+
+.btn.active {
+    background: -webkit-linear-gradient(left top, #FF4A61, #FF2641);
+    /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(bottom right, #FF4A61, #FF2641);
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(bottom right, #FF4A61, #FF2641);
+    /* Firefox 3.6 - 15 */
+    background: linear-gradient(to bottom right, #FF4A61, #FF2641);
+    /* 标准的语法 */
+}
+
+.btn-inline {
+    display: inline-block;
+    font-size: 16px;
+    padding: 0 0.2rem;
+    line-height: 0.6rem;
+}
+
+@media (min-width: 320px) {
+    .btn-inline {
+        font-size: 14px;
+    }
+}
+
+.form-group {
+    padding: 0.3rem 0;
+}
+
+.form-group label {
+    display: inline-block;
+    font-size: 14px;
+    color: #000;
+    padding-right: 0.28rem;
+    margin-right: 0.2rem;
+    border-right: 1px solid #000;
+    vertical-align: middle;
+    width: 1.2rem;
+}
+
+.form-group input {
+    display: inline-block;
+    font-size: 14px;
+    width: 3rem;
+    vertical-align: middle;
+}
+
+.form-group .ico-del {
+    margin-left: 0.2rem;
+}
+
+.form-group textarea {
+    display: block;
+    resize: none;
+    width: 100%;
+    margin-top: 0.2rem;
+}
+
+.shadow{
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+}
+
+.tab{
+    width: 100%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+}
+.tab-item{
+    float: left;
+    width: 3.1rem;
+    text-align: center;
+    font-size: 10px;
+    color: #666;
+    padding: 0.1rem 0;
+    margin: 0 0.3rem;
+}
+.active.tab-item{
+    color: #FF2641;
+    border-top: 2px solid #FF2641;
+    margin-top: -2px;
+}
+.tab-item i{
+    margin-bottom: 0.1rem;
+}

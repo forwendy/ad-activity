@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, minimal-ui">
+	<!--iphone-->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=no, email=no">
+	<!--iphone-->
+	<title>登录</title>
+	<script src="../js/fit.js"></script>
+	<link rel="stylesheet" href="../weui/weui.min.css">
+	<link rel="stylesheet" href="../css/icon.css ">
+	<link rel="stylesheet" href="../css/common.css ">
+	<style>
+		.main {
+			padding: 0 0 1.6rem;
+		}
+		.form {
+			margin-top: 0.4rem;
+			box-shadow: 0 0 10px 0 rgba(0, 0, 0, .1);
+			padding: 0 0.3rem;
+		}
+		@media (min-width: 320px) {
+			.form input {
+				width: 2.5rem;
+			}
+		}
+		.notes {
+			font-size: 12px;
+			padding: 0.2rem 0 0.55rem;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="page" id="app" v-cloak>
+		<div class="main">
+			<div class="scroll-container">
+				<div class="form">
+					<label-input class="form-group bottom-line" :max="11" label="手机号" placeholder="请输入手机号" :value="form.telephone" v-on:input="form.telephone = $event" v-on:clear="form.telephone = ''"></label-input>
+					<div class="form-group bottom-line">
+						<a v-show="countDown != 0" style="margin-top: -0.1rem;" class="btn btn-inline fr">倒数{{countDown}}s</a>
+						<label-input style="display:inline-block;" :max="6" label="验证码" placeholder="请输入验证码" :value="form.code" v-on:input="form.code = $event" v-on:clear="form.code = ''"></label-input>
+						<a v-show="countDown == 0" style="margin-top: -0.1rem;" class="btn btn-inline fr" :class="{active: form.telephone.length == 11}" v-on:click="getCode">获取验证码</a>
+					</div>
+					<p class="notes">请输入您的手机号码，登录或注册您的XX账号。</p>
+				</div>
+			</div>
+		</div>
+		<div class="footer fixed-bottom">
+			<a class="btn" :class="{active: isFinished}" v-on:click="submit">开始</a>
+		</div>
+	</div>
+	<!-- 兼容华为低版本浏览器 -->
+	<script src="https://cdn.bootcss.com/babel-polyfill/6.23.0/polyfill.min.js"></script>
+	<!-- 兼容华为低版本浏览器 -->
+	<script src="../js/vue.js"></script>
+	<script src="../js/component.js"></script>
+	<script src="../js/zepto.js"></script>
+	<script src="../weui/weui.min.js"></script>
+	<script>
+		var vapp = new Vue({
+			el: '#app',
+			data: {
+				countDown: 0,
+				form: {
+					telephone: '',
+					code: ''
+				}
+			},
+			computed: {
+				isFinished: function() {
+					return this.form.telephone != '' && this.form.code != ''
+				}
+			},
+			methods: {
+				getCode: function() {
+					var _this = this;
+					if (this.form.telephone) {
+						weui.alert('验证码已发送至134****9966，请查看您的手机短信', {
+							className: 'my-alert',
+						});
+						_this.countDown = 60;
+						var time = setInterval(function() {
+							// console.log(_this.countDown)
+							if (_this.countDown != 0) {
+								_this.countDown -= 1
+							} else {
+								clearInterval(time);
+							}
+						}, 1000);
+					}
+				},
+				submit: function() {
+					if (this.isFinished) {
+						var loading = weui.loading('loading', {
+							className: 'custom-classname'
+						});
+						setTimeout(function() {
+							loading.hide(function() {
+								console.log('`loading` has been hidden');
+							});
+							weui.toast('操作成功', 3000);
+						}, 3000);
+						var data = this.form;
+						$.post('/create', data, function(response) {
+							// process response
+						});
+					}
+				}
+			}
+		});
+	</script>
+</body>
+
+</html>
